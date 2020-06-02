@@ -8,16 +8,17 @@ import org.bukkit.configuration.serialization.SerializableAs
 data class ConfigDTO(public var type: AnnouncementType, public var delay: Int) : ConfigurationSerializable {
     override fun serialize(): MutableMap<String, Any> = ConfigUtil.reflectiveSerialize(this, ConfigDTO::class.java)
 
-    constructor(map: Map<String, Any>) {
-        this.type = ConfigUtil.getInEnum(map, "type", AnnouncementType::class.java, AnnouncementType.CHAT)
-        this.delay = ConfigUtil.getIfValid(map, "delay", Int::class.java, 300)
+    companion object {
+        fun deserialize(map: Map<String, Any>) : ConfigDTO {
+            val type = ConfigUtil.getInEnum(map, "type", AnnouncementType::class.java, AnnouncementType.CHAT)
+            val delay = ConfigUtil.getIfValid(map, "delay", Int::class.java, 300)
+            return ConfigDTO(type, delay)
+        }
     }
 }
 
 class Config(public val type: AnnouncementType, public val delay: Int) {
-    constructor(dto: ConfigDTO) {
-        Config(dto.type, dto.delay)
-    }
+    constructor(dto: ConfigDTO) : this(dto.type, dto.delay)
 }
 
 
