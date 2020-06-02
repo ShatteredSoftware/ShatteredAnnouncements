@@ -1,0 +1,7 @@
+announcements:
+  - ==: Announcement
+    content: "&fThis server is using &2ShatteredAnnouncements&f!"
+    chance: 5
+  - ==: Announcement
+    content: "&fCheck out our shop at &2shop.changeinconfig.yml&f!"
+    chance: 1
