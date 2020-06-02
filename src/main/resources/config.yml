@@ -1,3 +1,4 @@
 config:
   ==: AnnouncementConfig
-  type: Chat
+  type: Chat # Either Chat or ActionBar.
+  delay: 300 # Delay in seconds.
