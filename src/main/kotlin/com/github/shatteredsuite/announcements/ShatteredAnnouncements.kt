@@ -24,7 +24,7 @@ class ShatteredAnnouncements : ShatteredPlugin() {
     }
 
     override fun parseConfig(config: YamlConfiguration?) {
-        this.config = Config(getConfig()["config"] as ConfigDTO)
+        this.config = Config(getConfig().getSerializable("config", ConfigDTO::class.java)!!)
     }
 
     override fun load() {
@@ -70,8 +70,10 @@ class ShatteredAnnouncements : ShatteredPlugin() {
         for(player in Bukkit.getOnlinePlayers()) {
             when(config.type) {
                 AnnouncementType.CHAT -> player.sendMessage(current.content)
-                AnnouncementType.ACTIONBAR -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                        *TextComponent.fromLegacyText(current.content))
+                AnnouncementType.ACTIONBAR -> player.spigot().sendMessage(
+                        ChatMessageType.ACTION_BAR,
+                        *TextComponent.fromLegacyText(current.content)
+                )
             }
         }
     }
