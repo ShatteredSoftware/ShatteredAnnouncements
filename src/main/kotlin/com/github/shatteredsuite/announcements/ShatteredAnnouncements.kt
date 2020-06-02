@@ -29,6 +29,13 @@ class ShatteredAnnouncements : ShatteredPlugin() {
 
     override fun load() {
         val announcementsFile = File(dataFolder, "announcements.yml")
+        if(!announcementsFile.parentFile.exists()) {
+            announcementsFile.mkdirs()
+        }
+        if(!announcementsFile.exists()) {
+            saveResource("announcements.yml", false)
+        }
+
         val announcementsConfig = YamlConfiguration.loadConfiguration(announcementsFile)
         val announcementsList = announcementsConfig["announcements"] as List<*>
         for(announcement in announcementsList) {
